@@ -1,3 +1,11 @@
+## Steps to run :
+
+- Navigate to app folder
+
+1.  `npm install`
+2.  `npm start`
+
+
 ## Basic React Scaffold:
 The goal of this exercise is scaffold out a basic react project using webpack.
 ___
