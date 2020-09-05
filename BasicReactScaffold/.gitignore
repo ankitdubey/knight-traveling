@@ -1,0 +1,7 @@
+node_modules
+.vscode
+bundle
+.npm
+target/
+.settings/
+node_modules/.bin/acorn
