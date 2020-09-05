@@ -61,12 +61,14 @@ class DrawBoard extends React.Component {
         visitedCordinates.push(coordinate);
         this.setState({
           visitedCordinates:visitedCordinates,
-          isAlreadyVisited:isAlreadyVisited
+          isAlreadyVisited:isAlreadyVisited,
+          coordinateOutOfBox:false,
         })
         this.travleKnight(xValue, yValue, boardSize);
       }else{
         this.setState({
-          isAlreadyVisited:isAlreadyVisited
+          isAlreadyVisited:isAlreadyVisited,
+          coordinateOutOfBox:false
         })
       }
 
