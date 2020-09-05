@@ -9,6 +9,7 @@ class DrawBoard extends React.Component {
       yValue: 0,
       possibleCoordinates: [],
       coordinateOutOfBox: false,
+      visitedCordinates:[]
     };
 
     this.setXCordinate = this.setXCordinate.bind(this);
@@ -43,7 +44,34 @@ class DrawBoard extends React.Component {
         coordinateOutOfBox: true,
       });
     } else {
-      this.travleKnight(xValue, yValue, boardSize);
+      let coordinate=[parseInt(xValue),parseInt(yValue)];
+      let visitedCordinates=this.state.visitedCordinates;
+      let isAlreadyVisited=false;
+        if(visitedCordinates.length>0){
+          for(let i=0;i<visitedCordinates.length;i++){
+
+            if(visitedCordinates[i].toString()==coordinate.toString()){
+              console.log("Already visited");
+              isAlreadyVisited=true;
+            }
+          }
+        }
+     
+        if(!isAlreadyVisited){
+        visitedCordinates.push(coordinate);
+        this.setState({
+          visitedCordinates:visitedCordinates,
+          isAlreadyVisited:isAlreadyVisited
+        })
+        this.travleKnight(xValue, yValue, boardSize);
+      }else{
+        this.setState({
+          isAlreadyVisited:isAlreadyVisited
+        })
+      }
+
+     
+     
     }
   }
 
@@ -102,19 +130,10 @@ class DrawBoard extends React.Component {
         <div className="App mt-3">
           <div className="container">
             <div className="row mb-2">
-              <div className="col-4 offset-4">
+              <div className="col-4"></div>
+              <div className="col-4">
                 <form>
                   <div className="form-group">
-                  <div className="form-group">
-                    <input
-                      placeholder="Enter the size of board"
-                      type="number"
-                      className="form-control"
-                      id="columns"
-                      name="columns"
-                      onChange={this.setBordSize}
-                    />
-                  </div>
                     <input
                       placeholder="Enter X coordinate"
                       type="number"
@@ -134,7 +153,16 @@ class DrawBoard extends React.Component {
                       onChange={this.setYCordinate}
                     />
                   </div>
-                  
+                  <div className="form-group">
+                    <input
+                      placeholder="Enter the size of board"
+                      type="number"
+                      className="form-control"
+                      id="columns"
+                      name="columns"
+                      onChange={this.setBordSize}
+                    />
+                  </div>
 
                   <button
                     type="button"
@@ -160,11 +188,27 @@ class DrawBoard extends React.Component {
               <div className="row">
                 <div className="col-4 offset-4">
                   <p style={{ color: "red" }}>
-                    Coordinates out of the board size:
+                    * Coordinates out of the board size.
                   </p>
                 </div>
               </div>
             )}
+            <div className="row">
+                <div className="col-4 offset-4">
+                  <p >
+                    Visited Coordinates:{JSON.stringify(this.state.visitedCordinates)}
+                  </p>
+                </div>
+              </div>
+              {this.state.isAlreadyVisited && (
+                      <div className="row">
+                      <div className="col-4 offset-4">
+                        <p style={{ color: "red" }}>
+                          * Coordinates are already visited, please change the values of Coordinates
+                        </p>
+                      </div>
+                    </div>
+              )}
           </div>
         </div>
       </Fragment>
