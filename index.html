@@ -1,0 +1,99 @@
+<html>
+<head>
+    <!--
+    This is the library that provides websocket streaming pub/sub
+    The dev serverver is serving the html and javascript, but it also provides updating fx data on /fx/prices.
+     -->
+    <script src="stomp.js"></script>
+    <script src="sparkline.js"></script>
+
+    <style>
+        #currencyTable {
+          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #currencyTable td, #currencyTable th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #currencyTable tr:nth-child(even){background-color: #f2f2f2;}
+        
+        #currencyTable tr:hover {background-color: #ddd;}
+        
+        #currencyTable th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #4CAF50;
+          color: white;
+        }
+        </style>
+</head>
+<body>
+
+<!-- This is a description of what you should do for this task.  You can remove it for your answer -->
+<section class="content">
+    <h1>Updating Table</h1>
+
+    <h2> A Sorted table</h2>
+
+    <div id="tableContainer">
+        <table id="currencyTable">  
+           <thead id="tableHeader"> 
+               <tr>
+                <th>Currency Name</th>
+                <th>Current Best Bid Price</th>
+                <th>Current Best Ask Price</th>
+                <th>Best Bid Last Changed</th>
+                <th>Best Ask Price Last Changed</th>
+                <th>Sparkline</th>
+            </tr>
+           </thead>
+            <tbody id="tableBody">
+           </tbody>   
+        </table>  
+
+    </div>
+     
+    <h2>Approach followed for the solution :</h2>
+
+    <ul>
+        <li>After connect over websockets to a stomp server ,used subscribe() method to subscribe to  destination <strong>"/fx/prices".</strong></li>
+        <li>Parsed the response body data to json.</li>
+        <li>Created an object which will hold unique key for each currency type.</li>
+        <li>Updated the existing currency data with incoming data.</li>
+        <li>Convert object into the array for objects.</li>
+        <li>Applid  sorting on array by last changed bid price.</li>
+        <li>Created the dynamic table by inserting new rows and cell values into the table body.</li>
+        <li>Created the sparkline graph  for  each currency type row.</li>
+        <li>Construct an array for inserting the sparkline data in interval of 30 seconds.</li>
+        <li> Append the sarkline element into the last cell of the each table row.</li>
+    </ul>
+
+    <h2>Technologies used for the solution :</h2>
+    <ul>
+        <li>Used plain javascript creating object.</li>
+        <li>Used ES6 arrow function for call back method.</li>
+        <li>Used ES6 map() function for iterating array of objects.</li>
+        <li>Used step by step code commenting.</li>
+    </ul>
+
+    <h2>Personal information :</h2>
+
+    <ul>
+        <li>Name : Ankit Dubey</li>
+        <li>Email : ankit.dubey06@gmail.com</li>
+        <li>Contact :  7999693571 , 9584302632</li>
+    </ul>
+
+</section>
+
+<!-- Code you write in index.js and anything it depends on will be bundled into bundle.js and
+     is included here -->
+<script src="bundle.js"></script>
+
+</body>
+</html>
